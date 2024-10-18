@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Product {
+  id: Int!
+  name: String!
+  price: Int!
+  stock: Int!
+  orders: [OrderProducts!]
+}
+
+type OrderProducts {
+  orderId: Int!
+  productId: Int!
+  product: Product
+  order: Order
+}
+
+type Order {
+  id: Int!
+  orderDate: DateTime!
+  userId: Int!
+  user: User!
+  products: [OrderProducts!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  orders: [Order!]
+}
+
+type ProductInfo {
+  productName: String!
+  productPrice: Int!
+  productStock: Int!
+}
+
+type OrderInfo {
+  orderId: Int!
+  orderDate: String!
+  products: [ProductInfo!]!
+}
+
+type UserProductsDto {
+  orders: [OrderInfo!]!
+}
+
+type Query {
+  users: [User!]!
+  user(id: String!): User
+  userProducts(userId: Int!): UserProductsDto!
+  products: [Product!]!
+  product(id: String!): Product
+  productUser(productId: Int!): [String!]!
+  orders: [Order!]!
+  order(id: String!): Order
+}
+
+type Mutation {
+  createUser(name: String!, email: String!): User!
+  createProduct(name: String!, price: Float!, stock: Float!): Product!
+  createOrder(userId: Float!, productIds: [Int!]!): Order!
+}

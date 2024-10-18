@@ -1,0 +1,47 @@
+# User tipini tanımlıyoruz.
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  orders: [Order!]!
+}
+
+# Product tipini tanımlıyoruz.
+type Product {
+  id: ID!
+  name: String!
+  price: Float!
+  stock: Int!
+  orders: [OrderProducts!]!
+}
+
+# Order tipini tanımlıyoruz.
+type Order {
+  id: ID!
+  orderDate: String!
+  user: User!
+  products: [OrderProducts!]!
+}
+
+# OrderProducts arasındaki ilişkiyi tanımlıyoruz.
+type OrderProducts {
+  order: Order!
+  product: Product!
+}
+
+# Sorgular
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+  products: [Product!]!
+  product(id: ID!): Product
+  orders: [Order!]!
+  order(id: ID!): Order
+}
+
+# Mutasyonlar
+type Mutation {
+  createUser(name: String!, email: String!): User!
+  createProduct(name: String!, price: Float!, stock: Int!): Product!
+  createOrder(userId: ID!, productIds: [ID!]!): Order!
+}
